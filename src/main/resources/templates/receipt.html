@@ -1,0 +1,35 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Example template</title>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" /></head>
+<body>
+<h1>Basket</h1>
+<h5>PRICE AFTER DISCOUNTS</h5>
+<p th:text="*{price}"></p>
+<h5>PRICE BEFORE DISCOUNTS</h5>
+<p th:text="*{priceWithoutReceipt}"></p>
+<table class="products">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+    <tr th:each="r : ${myReceipt}">
+        <td th:text="${r.product().name()}"/>
+        <td th:text="${r.product().type()}"/>
+        <td th:text="${r.product().price()}"/>
+        <td th:text="${r.quantity()}"/>
+    </tr>
+</table>
+<h5>Active discounts:</h5>
+<tr th:each="discount : ${discounts}">
+    <td th:text="${discount}"/>
+    <br>
+</tr>
+
+<h1><a th:href="@{/mainView}">BACK TO MAIN VIEW</a></h1>
+</body>
+</html>

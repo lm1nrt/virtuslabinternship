@@ -1,0 +1,61 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Example template</title>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" /></head>
+<body>
+
+<h1>All products</h1>
+<table class="products">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="product : ${allProducts}">
+        <td th:text="${product.name()}"/>
+        <td th:text="${product.type()}"/>
+        <td th:text="${product.price()}"/>
+    </tr>
+</table>
+
+<p>------------------------------------</p>
+
+<h1><a th:href="@{/receiptView}">CHECK RECEIPT</a></h1>
+<form action="#" th:action="@{/add}" method="post">
+    <select th:name="name" required>
+        <option th:each="n : ${names}"
+                th:value="${n}"
+                th:text="${n}"
+                th:name="${n}"/>
+    </select>
+    <input type="number" max="100" min="1" th:name="quantity" required/>
+    <p><input type="submit" value="Add to basket"></p>
+</form>
+
+<p>------------------------------------</p>
+
+<h1>Receipt Entries</h1>
+<h5>Current price</h5>
+<p th:text="*{priceWithoutReceipt}"></p>
+<table class="products">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="current : ${currentProducts}">
+        <td th:text="${current.name()}"/>
+        <td th:text="${current.type()}"/>
+        <td th:text="${current.price()}"/>
+    </tr>
+</table>
+
+<h1>Clear all</h1>
+<form action="#" th:action="@{/clear}" method="get">
+    <p><input type="submit" value="Clear all"></p>
+</form>
+
+</body>
+</html>
